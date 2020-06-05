@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ShoppingCart">
+    <TableRow>
+        <ImageView
+            android:id="@+id/ivRestaurant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:id="@+id/tvSCrestname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:textSize="20sp"
+            />
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/tvSCrestAddress"
+            android:textSize="16sp"
+            />
+
+    </TableRow>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSCrestfood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+
+</TableLayout>
