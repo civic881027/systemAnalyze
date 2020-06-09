@@ -33,6 +33,15 @@ public class DBhelper extends SQLiteOpenHelper {
                 "restUrl TEXT NOT NULL);";
         db.execSQL(sql);
 
+        sql="CREATE TABLE IF NOT EXISTS orderForm("+
+                "_ID INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                "foodName TEXT NOT NULL,"+
+                "foodCount TEXT NOT NULL,"+
+                "total INTEGER NOT NULL,"+
+                "restName TEXT NOT NULL,"+
+                "deliveryAddress TEXT NOT NULL);";
+        db.execSQL(sql);
+
     }
 
     @Override
@@ -40,6 +49,8 @@ public class DBhelper extends SQLiteOpenHelper {
         String sql="DROP TABLE IF EXISTS RestFood";
         db.execSQL(sql);
         sql="DROP TABLE IF EXISTS restaurant";
+        db.execSQL(sql);
+        sql="DROP TABLE IF EXISTS orderForm";
         db.execSQL(sql);
         onCreate(db);
     }

@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import com.strawberry.delivery.foodCounter;
+import com.strawberry.delivery.data.foodCounter;
 
 public class orderAdapter extends RecyclerView.Adapter<orderAdapter.orderViewHolder>{
     private ArrayList<foodCounter> foodCounters;

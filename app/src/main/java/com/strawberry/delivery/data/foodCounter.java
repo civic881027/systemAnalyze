@@ -1,4 +1,4 @@
-package com.strawberry.delivery;
+package com.strawberry.delivery.data;
 
 import java.io.Serializable;
 

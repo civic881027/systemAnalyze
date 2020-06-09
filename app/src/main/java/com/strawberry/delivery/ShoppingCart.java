@@ -8,22 +8,28 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.strawberry.delivery.data.DBhelper;
+import com.strawberry.delivery.data.foodCounter;
+import com.strawberry.delivery.data.orderform;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import com.strawberry.delivery.network.publishOrder;
 
 public class ShoppingCart extends AppCompatActivity {
     private SQLiteDatabase mDb;
     private Map<String, Integer> restID=new HashMap<>();
     private String restName;
+    private ArrayList<foodCounter> foodCounters;
+    private static int orderID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,12 +38,21 @@ public class ShoppingCart extends AppCompatActivity {
         ImageView ivRestImgae=(ImageView)findViewById(R.id.ivRestaurant);
         TextView tvRestName=(TextView)findViewById(R.id.tvSCrestname);
         TextView tvRestAddress=(TextView)findViewById(R.id.tvSCrestAddress);
+        TextView tvTotal=(TextView)findViewById(R.id.tvTotal);
         RecyclerView rv=(RecyclerView)findViewById(R.id.rvSCrestfood);
+
+
         DBhelper dBhelper=new DBhelper(this);
         mDb=dBhelper.getReadableDatabase();
 
         Bundle bundle=getIntent().getExtras();
-        ArrayList<foodCounter> foodCounters=(ArrayList<foodCounter>) bundle.getSerializable("countFood");
+        foodCounters=(ArrayList<foodCounter>) bundle.getSerializable("countFood");
+        int total=0;
+        for(foodCounter f:foodCounters){
+            total+=f.getTotal();
+        }
+        Log.d("test",String.valueOf(total));
+        tvTotal.setText(String.valueOf(total));
         restName=bundle.getString("restaurant");
 
         Cursor cursor1=getRest();
@@ -74,5 +89,15 @@ public class ShoppingCart extends AppCompatActivity {
         restID.put("麥當勞-台北新生店",1);
         restID.put("可不可熟成紅茶-台北公館店",2);
         restID.put("再睡5分鐘",3);
+    }
+
+    public void sendOrder(View view){
+        EditText etAddress=(EditText)findViewById(R.id.etAddress);
+        Intent intent=new Intent(this,publishOrder.class);
+        Bundle bundle=new Bundle();
+        orderform orderform=new orderform(String.valueOf(orderID++),foodCounters,etAddress.getText().toString());
+        bundle.putSerializable("orderForm",orderform);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }
